@@ -1,0 +1,66 @@
+services:
+  dbpostgres:
+    image: postgres:14.15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  redisservice:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  dbservice:
+    build:
+      context: ./dbservice
+      dockerfile: Dockerfile
+      args:
+        -  BUILD_NO_CACHE=true
+    ports:
+      - "8003:8003"
+    depends_on:
+      - dbpostgres
+    env_file:
+      - ./dbservice/.env
+  authservice:
+    build:
+      context: ./authservice
+      dockerfile: Dockerfile
+      args:
+        - BUILD_NO_CACHE=true
+    ports:
+      - "8001:8001"
+    depends_on:
+        - dbservice
+    env_file:
+      - ./authservice/.env
+  taskservice:
+    build:
+      context: ./taskservice
+      dockerfile: Dockerfile
+      args:
+        -  BUILD_NO_CACHE=true
+    ports:
+      - "8002:8002"
+    depends_on:
+        - authservice
+        - redisservice
+        - dbservice
+    env_file:
+      - ./taskservice/.env
+  frontendservice:
+    build:
+      context: ./frontendservice
+      dockerfile: Dockerfile
+      args:
+       - BUILD_NO_CACHE=true
+    ports:
+      - "5173:5173"
+    depends_on:
+      - taskservice
+
+volumes:
+  db_data:

@@ -1,0 +1,16 @@
+authService/__pycache__/
+authService/api/__pycache__/
+dbService/.db_api.py.swp
+dbService/__pycache__/
+dbService/db/__pycache__/
+frontendService/README.md
+frontendService/pasckage.json
+frontendService/src/components/HelloWorld.vue
+taskService/__pycache__/
+taskService/api/__pycache__/
+taskService/db/database.py
+taskService/db/models.py
+taskService/db/schemas.py
+
+
+
