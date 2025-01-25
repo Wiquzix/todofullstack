@@ -47,7 +47,7 @@ export default {
         let response
         if (props.isLogin) {
             response = await axios.post(
-                "http://localhost:8001/login",
+                "http://localhost:8001/token",
                 { username: username.value, password: password.value }
             );
         } else {
