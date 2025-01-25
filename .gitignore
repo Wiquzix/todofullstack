@@ -12,5 +12,16 @@ taskService/db/database.py
 taskService/db/models.py
 taskService/db/schemas.py
 
+taskService/api/task_api.py
+dbService/db/.DS_Store
+dbService/db/__init__.py
+dbService/db/database.py
+dbService/db/models.py
+dbService/db/schemas.py
+authService/api/.DS_Store
+authService/auth/.DS_Store
+authService/db/database.py
+authService/db/models.py
+authService/db/schemas.py
 
 
