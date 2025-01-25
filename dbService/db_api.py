@@ -31,7 +31,7 @@ def get_user(user_id: str, db: Session = Depends(get_db)):
     return schemas.UserResponse(id=user.id, username=user.username)
 
 @router.get("/users_by_username/{username}", response_model=schemas.User)
-def get_user(username: str, db: Session = Depends(get_db)):
+def get_user_by_username(username: str, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.username == username).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
