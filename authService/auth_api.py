@@ -76,7 +76,7 @@ async def get_user(token: str):
    except JWTError:
       raise credentials_exception
    async with httpx.AsyncClient() as client:
-        response = await client.get(f"{db_url}/users", params={"username": username})
+        response = await client.get(f"{db_url}/users_by_username/{username}")
         if response.status_code != 200:
             raise HTTPException(status_code=response.status_code, detail=response.json().get("detail"))
         return response.json()
