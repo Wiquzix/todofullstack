@@ -1,27 +1,9 @@
-authService/__pycache__/
-authService/api/__pycache__/
-dbService/.db_api.py.swp
-dbService/__pycache__/
-dbService/db/__pycache__/
-frontendService/README.md
-frontendService/pasckage.json
-frontendService/src/components/HelloWorld.vue
-taskService/__pycache__/
-taskService/api/__pycache__/
-taskService/db/database.py
-taskService/db/models.py
-taskService/db/schemas.py
+taskservice/api/*
+taskservice/db/*
 
-taskService/api/task_api.py
-dbService/db/.DS_Store
-dbService/db/__init__.py
-dbService/db/database.py
-dbService/db/models.py
-dbService/db/schemas.py
-authService/api/.DS_Store
-authService/auth/.DS_Store
-authService/db/database.py
-authService/db/models.py
-authService/db/schemas.py
+authservice/db/*
+authservice/auth/*
+authservice/api/*
 
+dbservice/db/*
 
