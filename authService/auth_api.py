@@ -43,19 +43,21 @@ async def register_user(user: UserCreate):
             raise HTTPException(status_code=response.status_code, detail=response.json().get("detail"))
         return response.json()
 @router.post("/token", response_model=Token)
-async def login(form_data: OAuth2PasswordRequestForm = Depends(), db = None):
+async def login(user:dict):
+#async def login(form_data: OAuth2PasswordRequestForm = Depends(), db = None):
   credentials_exception = HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST,
         detail="Incorrect username or password"
      )
   async with httpx.AsyncClient() as client:
-      response = await client.post(f"{db_url}/users", params={"username": form_data.username})
+      username = user["username"]
+      response = await client.get(f"{db_url}/users_by_username/{username}")
       if response.status_code != 200:
           raise credentials_exception
       user = response.json()
-      if not auth_utils.verify_password(form_data.password, User(**user).hashed_password):
+      if not auth_utils.verify_password(user["password"], User(**user).hashed_password):
          raise credentials_exception
-      access_token = auth_utils.create_access_token(data={"sub": user["username"]})
+      access_token = auth_utils.create_access_token(data={"sub": username})
   return Token(access_token=access_token, token_type="bearer")
 
 @router.get("/user", response_model=UserResponse)
