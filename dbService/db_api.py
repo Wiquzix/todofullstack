@@ -30,12 +30,12 @@ def get_user(user_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return schemas.UserResponse(id=user.id, username=user.username)
 
-@router.get("/users_by_username/{username}", response_model=schemas.UserResponse)
+@router.get("/users_by_username/{username}", response_model=schemas.User)
 def get_user(username: str, db: Session = Depends(get_db)):
     user = db.query(models.User).filter(models.User.username == username).first()
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return schemas.UserResponse(id=user.id, username=user.username)
+    return schemas.User(hashed_password=user.hashed_password)
 
 @router.get("/tasks/{user_id}", response_model=List[schemas.Task])
 def get_tasks(user_id: str, db: Session = Depends(get_db)):
